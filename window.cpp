@@ -45,7 +45,7 @@ class ParticleGrid{
         for(int i=0;i<width;i++){
             for(int j=0;j<height;j++){
                 this->get(i,j).num_particles = 0;
-                this->get(i,j).color = Color::Black;
+                // this->get(i,j).color = Color::Cyan;
             }
         }
     }
@@ -276,31 +276,34 @@ void check_events(RenderWindow& win,bool& mouse){
 void check_winner(RenderWindow& win,Font& font,bool& over){
     Text text;
     text.setFont(font);
-    text.setCharacterSize(40);
+    text.setCharacterSize(41);
+    text.setOutlineThickness(3.5);
 
     if (g1.countRedcells() == 0 && g1.countGreencells()==0){
         text.setString("Game starts!!");
         text.setFillColor(Color::Green);
-        text.setPosition(Vector2f(WIDTH / 2 - 75, HEIGHT / 2 - 50));
+        text.setPosition(Vector2f(WIDTH / 2 -150, HEIGHT / 2 ));
         win.draw(text);
     }
 
     else if (g1.countRedcells() == 0) {
         if(g1.countGreencells()==1) text.setString("Red player chance!");
         else{
-        text.setString("Green player wins!!");}
+        text.setString("Green player wins!!\nTap to resume from here");}
         text.setFillColor(Color::Green);
-        text.setPosition(Vector2f(WIDTH / 2 - 75, HEIGHT / 2 - 50));
+        text.setPosition(Vector2f(WIDTH / 2 -220, HEIGHT / 2 ));
         win.draw(text);
+
         over = true;
     } 
     else if (g1.countGreencells() == 0) {
         if(g1.countRedcells()==1) text.setString("Green player chance!");
         else{
-        text.setString("Red player wins!! ");}
+        text.setString("Red player wins!!\nTap to resume from here");}
         text.setFillColor(Color::Red);
-        text.setPosition(Vector2f(WIDTH / 2 - 75, HEIGHT / 2 - 50));
+        text.setPosition(Vector2f(WIDTH / 2 -220, HEIGHT / 2 ));
         win.draw(text);
+
         over = true;
     }
 }
@@ -327,10 +330,10 @@ int main(){
 
         g.render(window,g1,font);
         check_winner(window,font,over);
+        
         window.display();
     }
 
     return 0;
 }
-
-
+//g++ try.cpp -o prog -lsfml-graphics -lsfml-window -lsfml-system
